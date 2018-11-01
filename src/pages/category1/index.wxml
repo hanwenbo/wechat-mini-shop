@@ -1,0 +1,32 @@
+<view style="background-color:#F8F8F8;display: block;overflow: hidden">
+    <view class="goods-category-style-1">
+        <aside>
+            <scroll-view scroll-y="true" scroll-with-animation="true">
+                <block wx:for="{{categoryList}}" wx:key="item" wx:for-index="index">
+                    <view id="category_main_{{index}}">
+                        <details data-id="{{item.id}}" data-index="{{index}}" bindtap="mainNavTap"
+                                 class="{{mainNavClickIndex === index ? 'active' : ''}}">
+                            <text>{{item.name}}</text>
+                        </details>
+                    </view>
+                </block>
+            </scroll-view>
+        </aside>
+        <aside>
+            <scroll-view scroll-y="true" scroll-with-animation="true" bindscroll="subNavScroll">
+                <block wx:for="{{categoryList}}" data-index="{{index}}" wx:key="item">
+                    <section wx:if="{{index === mainNavClickIndex}}">
+                        <block wx:for="{{item.childs}}" wx:key="sub" wx:for-item="sub">
+                            <details data-index="{{index}}" data-category-id="{{sub.id}}"
+                                     data-category-name="{{sub.name}}" bindtap="categoryClick">
+                                <image src="{{sub.icon}}" mode="aspectFit" />
+                                <text>{{sub.name}}</text>
+                            </details>
+                        </block>
+                    </section>
+                </block>
+            </scroll-view>
+        </aside>
+        <view class="line"></view>
+    </view>
+</view>
